@@ -1,0 +1,19 @@
+<div class="dropdown-menu js-dropdown-menu" data-dropdown-menu-id="<%= id %>">
+  <div class="dropdown-menu__arrow js-dropdown-menu-arrow"></div>
+  <div class="dropdown-menu__wrapper">
+    <% items.each do |item| %>
+      <% item_class_list = extract_class_list(item) %>
+      <% if item.present? %>
+        <% if item[:html].present? %>
+          <%= item[:html].html_safe %>
+        <% elsif item[:separator].present? %>
+          <hr class="dropdown-menu__separator">
+        <% else %>
+          <a href="<%= item[:href] %>" class="<%= parse_class(['dropdown-menu__item'] << item_class_list) %>" <%= tag_options(item[:attributes]).html_safe if item[:attributes].present? %>>
+            <%= item[:value] %>
+          </a>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

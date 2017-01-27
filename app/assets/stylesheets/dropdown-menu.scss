@@ -1,0 +1,119 @@
+$color-active:         #00d1c1;
+$color-text:           mix($color-active, #666, 8%);
+$color-text-medium:    mix($color-text, #fff, 64%);
+$color-bg:             #fbfbfb;
+$color-border:         #eaeaea;
+$spacing:              16px;
+$border-radius:        3px;
+$transition-time:      .16s;
+$transition-time-long: $transition-time * 2;
+$arrow-color:          #fff;
+$arrow-width:          10px !default;
+$arrow-outer-width:    ($arrow-width + 1) !default;
+$arrow-outer-color:    mix(#000, $color-border, 10%) !default;
+
+.dropdown-menu {
+  visibility: hidden;
+  position: absolute;
+  top: 56px;
+
+  width: 320px;
+  margin-bottom: $spacing;
+  margin-left: -160px;
+  background: #fff;
+  border-radius: $border-radius;
+  padding: ($spacing / 2) 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .12), 0 4px 16px rgba(0, 0, 0, .1);
+  transform: matrix(.9, 0, 0, .9, 0, -16);
+
+  line-height: 1.5;
+
+  opacity: 0;
+  transition: opacity $transition-time, transform $transition-time;
+
+  &.is-open {
+    visibility: visible;
+    transform: matrix(1, 0, 0, 1, 0, 8);
+
+    opacity: 1;
+    transition: opacity $transition-time-long, transform $transition-time-long;
+
+    .dropdown-menu__wrapper {
+      opacity: 1;
+      transform: matrix(1, 0, 0, 1, 0, 0);
+      transition: opacity $transition-time ease $transition-time,
+                  transform $transition-time ease $transition-time;
+    }
+  }
+
+  &__wrapper {
+    opacity: 0;
+    transform: matrix(1, 0, 0, 1, 0, -8);
+    transition: opacity ($transition-time / 2), transform 9s;
+  }
+
+  &__item {
+    display: block;
+
+    padding: ($spacing / 2) $spacing;
+
+    text-align: left;
+    color: mix($color-text-medium, $color-text, 50);
+
+    &:hover {
+      background: $color-bg;
+
+      color: $color-text;
+    }
+
+    &.is-active {
+      border-left: 2px solid $color-active;
+      font-weight: 600;
+    }
+  }
+
+  &__separator {
+    height: 1px;
+    margin: ($spacing / 2) 0;
+    background: $color-border;
+    border: 0;
+  }
+
+  &__row {
+    padding: ($spacing / 2);
+  }
+}
+
+.dropdown-menu__arrow {
+  &,
+  &:after {
+    display: block;
+    position: absolute;
+
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+
+  & {
+    top: -$arrow-outer-width;
+    left: 50%;
+
+    margin-left: -$arrow-outer-width;
+    border-bottom-color: $arrow-outer-color;
+    border-width: $arrow-outer-width;
+    border-top-width: 0;
+  }
+
+  &:after {
+    top: 1px;
+
+    margin-left: -$arrow-width;
+    border-bottom-color: $arrow-color;
+    border-width: $arrow-width;
+    border-top-width: 0;
+
+    content: " ";
+  }
+}
